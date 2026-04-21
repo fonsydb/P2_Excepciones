@@ -1,4 +1,4 @@
-# P2 - Sistema de gestión de excepciones con Springboot y Python
+# P2 - Sistema de Gestión de Excepciones con Springboot y Python
 
 El objetivo de la Práctica Obligatoria 2 poner en marcha un sistema de gestion de excepciones con springboot y pythonI.
 Sistema con spring boot Frontend y api en python
