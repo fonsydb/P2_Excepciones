@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Sistema de Gestión de Excepciones - Login</title>
+    <style>
+        .error { color: red; }
+        .container { width: 300px; margin: 100px auto; padding: 20px; border: 1px solid #ccc; border-radius: 5px; }
+        input { width: 100%; padding: 8px; margin: 5px 0 15px 0; }
+        button { width: 100%; padding: 10px; background-color: #007bff; color: white; border: none; cursor: pointer; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Iniciar Sesión</h2>
+    <form th:action="@{/login}" method="post">
+        <div th:if="${param.error}" class="error">
+            <p>Usuario o Contraseña incorrectos</p>
+        </div>
+        <div th:if="${param.logout}" class="error">
+            <p>Se ha Cerrado Sesión Correctamente!!!</p>
+        </div>
+        <div>
+            <label>Usuario:</label>
+            <input type="text" name="username" required/>
+        </div>
+        <div>
+            <label>Contraseña:</label>
+            <input type="password" name="password" required/>
+        </div>
+        <button type="submit">Entrar</button>
+    </form>
+    <p style="margin-top: 15px; font-size: 12px;">Usuarios: admin (admin123) | user (user123)</p>
+</div>
+</body>
+</html>

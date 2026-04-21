@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Sistema de Gestión de Excepciones</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 50px; }
+        .header { background-color: #f0f0f0; padding: 20px; border-radius: 5px; margin-bottom: 20px; }
+        .menu { margin: 20px 0; }
+        .menu a { display: inline-block; margin: 5px 10px 5px 0; padding: 10px 15px; background-color: #007bff; color: white; text-decoration: none; border-radius: 3px; }
+        .logout-btn { background-color: #dc3545; border: none; padding: 10px 15px; color: white; cursor: pointer; border-radius: 3px; }
+    </style>
+</head>
+<body>
+<div class="header">
+    <h1>P2: Sistema de Gestión de Excepciones</h1>
+    <p>Demostración de manejo de errores con Spring Boot + Python Flask</p>
+</div>
+
+<div sec:authorize="isAnonymous()">
+    <div class="menu">
+        <a href="/login">Iniciar Sesión</a>
+    </div>
+</div>
+
+<div sec:authorize="isAuthenticated()">
+    <div class="menu">
+        <p>Bienvenido, <strong sec:authentication="name"></strong>!
+        <form th:action="@{/logout}" method="post" style="margin-top: 20px;">
+            <button type="submit" class="logout-btn">Cerrar Sesión</button>
+        </form>
+        </p>
+        <a href="/python-api">🔧 Test API Python (Simulación de Excepciones)</a>
+    </div>
+
+
+</div>
+
+<div style="margin-top: 50px; padding: 20px; background-color: #e9ecef; border-radius: 5px;">
+    <h3>📌 Excepciones que se pueden testear:</h3>
+    <ul>
+        <li>❌ Error de Lectura de Archivos</li>
+        <li>❌ Error de Acceso a Base de Datos</li>
+        <li>❌ Error Llamando a API Externa (Pokémon)</li>
+    </ul>
+</div>
+</body>
+</html>

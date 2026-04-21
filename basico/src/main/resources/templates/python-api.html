@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Sistema de Gestión de Excepciones - Pruebas API Python</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 50px; }
+    .container { max-width: 800px; margin: 0 auto; }
+    .card { border: 1px solid #ddd; border-radius: 8px; padding: 20px; margin-bottom: 20px; }
+    select, button { padding: 10px; margin: 10px 0; }
+    button { background-color: #28a745; color: white; border: none; cursor: pointer; }
+    button:hover { background-color: #218838; }
+    .success { color: green; background-color: #d4edda; padding: 15px; border-radius: 5px; margin: 10px 0; }
+    .error { color: red; background-color: #f8d7da; padding: 15px; border-radius: 5px; margin: 10px 0; }
+    .info { color: blue; background-color: #d1ecf1; padding: 15px; border-radius: 5px; margin: 10px 0; }
+    .back-link { display: inline-block; margin-top: 20px; color: #007bff; text-decoration: none; }
+    .loading { color: orange; font-style: italic; }
+    .error-details { background-color: #f5f5f5; padding: 15px; border-radius: 5px; font-family: monospace; font-size: 14px; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word; border-left: 4px solid red; }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>🔧 Simulador de Excepciones</h1>
+
+  <div class="card">
+    <form method="post" th:action="@{/python-api/test}">
+      <select name="tipoError" required>
+        <option value="">-- Selecciona el tipo de error a simular --</option>
+        <option value="archivo">Error de Lectura de Archivo</option>
+        <option value="bd">Error de Base de Datos</option>
+        <option value="pokemon">Error Llamada a API externa (Pokemon)</option>
+      </select>
+      <button type="submit">Probar Excepción</button>
+    </form>
+  </div>
+
+  <div th:if="${loading}">
+    <div class="info">Llamando al API Python, esperando respuesta...</div>
+  </div>
+
+  <!-- Información del tipo de error probado -->
+  <div th:if="${tipoProbado} and !${loading}">
+    <div class="info">
+      <strong>ℹ️ Tipo de error probado:</strong>
+      <span th:text="${tipoProbado}"></span>
+    </div>
+  </div>
+
+  <!-- Error capturado -->
+  <div th:if="${error} and !${loading}">
+    <div class="error">
+      <strong>❌ EXCEPCIÓN CAPTURADA:</strong>
+      <div class="error-details" th:text="${error}"></div>
+    </div>
+  </div>
+  <div style="margin-top: 20px; padding: 15px; background-color: #e9ecef; border-radius: 5px;">
+    <h3>📌 ¿Qué excepciones se están probando?</h3>
+    <ul>
+      <li><strong>Archivo:</strong> Intenta leer un archivo que no existe</li>
+      <li><strong>Base de Datos:</strong> Consulta una tabla que no existe</li>
+      <li><strong>Pokemon API:</strong> Busca un Pokémon con ID inválido (999999)</li>
+    </ul>
+    <p style="font-size: 12px; color: #666;">Todas las excepciones son capturadas por el API Python y devueltas como JSON con código 500.</p>
+  </div>
+
+  <a href="/" class="back-link">← Volver a inicio</a>
+</div>
+</body>
+</html>
